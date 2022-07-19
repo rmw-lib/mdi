@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.8</h1>
+<h1 align="center">mdi v0.0.11</h1>
 <p align="center">
 <a href="#en">English</a>
 <span color="#ccc"> │ </span>
@@ -23,6 +23,16 @@ Search for `xxx.mdi.md` in the directory , replace `> ./xxx.rs` into embed code 
 
 If the embed is a markdown file, the references are rendered recursively.
 
+See example [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.mdi.md)
+
+Demo for include code :
+
+  → [demo.js](./demo.js)
+
+  ```js
+  var a = 1;  console.log(a);  ```
+
+
 ### About
 
 This project is part of **[rmw.link](//rmw.link)** Code Project
@@ -44,6 +54,16 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 搜索目录下的 `xxx.mdi.md` 把 `> ./xxx.rs` 替换为代码内容嵌入 ，然后输出到 `xxx.md` 。
 
 如果嵌入的是一个 markdown 文件，会递归渲染其中的引用。
+
+查看演示文件 [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.mdi.md)
+
+嵌入代码演示 :
+
+  → [demo.js](./demo.js)
+
+  ```js
+  var a = 1;  console.log(a);  ```
+
 
 ### 关于
 

@@ -1,7 +1,7 @@
 use std::{
   env::current_dir,
   fs::{self, File},
-  io::{copy, BufRead, BufReader, BufWriter, Write},
+  io::{BufRead, BufReader, BufWriter, Write},
   iter::Iterator,
   path::PathBuf,
 };
@@ -125,9 +125,13 @@ pub fn render(
             for i in BufReader::new(infile).lines().flatten() {
               out.write_all(space)?;
               out.write_all(i.as_bytes())?;
+              out.write_all(b"\n")?;
             }
           } else {
-            copy(infile, out)?;
+            for i in BufReader::new(infile).lines().flatten() {
+              out.write_all(i.as_bytes())?;
+              out.write_all(b"\n")?;
+            }
           }
 
           if let Some(space) = &space {
