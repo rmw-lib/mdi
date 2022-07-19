@@ -43,7 +43,7 @@ jobs:
       - name: build
         shell: bash
         run: |
-          pip3 install -r requirement.txt
+          pip3 install -r requirements.txt
           ./build.xsh
 
       - uses: actions/upload-artifact@v3
