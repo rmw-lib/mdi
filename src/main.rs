@@ -183,7 +183,7 @@ pub fn parse(
             let md = fs::File::open(&fp)?;
             fp.set_file_name(name);
             let out = File::create(&fp)?;
-            println!("\n{}", fp.display());
+            println!("{}", fp.display());
             render(BufReader::new(md), &mut BufWriter::new(out), fp, None)?;
           }
         }

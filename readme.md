@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.13</h1>
+<h1 align="center">mdi v0.0.15</h1>
 <p align="center">
 <a href="#en">English</a>
 <span color="#ccc"> │ </span>
@@ -13,7 +13,7 @@
 
 ## English Readme
 
-markdown include
+markdown include code / version / markdown ...
 
 ### Use
 
@@ -21,7 +21,7 @@ markdown include
 
 `mdi [dir]`
 
-Search for `xxx.mdi.md` in the directory , replace `> ./xxx.rs` into embed code and output it to `xxx.md`.
+Will search `xxx.mdi.md` in the directory , replace `> ./xxx.rs` into embed code and output it to `xxx.md`.
 
 If the embed is a markdown file, the references are rendered recursively.
 
@@ -29,12 +29,13 @@ See example [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master
 
 Demo for include code :
 
-  [→ demo.js](./demo.js)
+  → [demo.js](./demo.js)
 
   ```js
   var a = 1;
   console.log(a);
   ```
+
 
 ### About
 
@@ -48,7 +49,7 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 
 ## 中文说明
 
-markdown 的文本嵌入
+markdown 中嵌入代码 / 版本号 / markdown ...
 
 ### 使用
 
@@ -64,12 +65,13 @@ markdown 的文本嵌入
 
 嵌入代码演示 :
 
-  [→ demo.js](./demo.js)
+  → [demo.js](./demo.js)
 
   ```js
   var a = 1;
   console.log(a);
   ```
+
 
 ### 关于
 
