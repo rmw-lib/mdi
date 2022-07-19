@@ -1,7 +1,7 @@
 <h1 align="center">mdi v`> ./.version`</h1>
 <p align="center">
 <a href="#en">English</a>
-<span color="#ccc"> │ </span>
+|
 <a href="#zh"> 中文说明 </a>
 </p>
 
