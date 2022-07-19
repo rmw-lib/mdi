@@ -13,6 +13,8 @@
 
 ## English Readme
 
+markdown include
+
 ### Use
 
 <!-- EDIT /Users/z/rmw/mdi/example.md -->
@@ -34,7 +36,6 @@ Demo for include code :
   console.log(a);
   ```
 
-
 ### About
 
 This project is part of **[rmw.link](//rmw.link)** Code Project
@@ -47,13 +48,15 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 
 ## 中文说明
 
+markdown 的文本嵌入
+
 ### 使用
 
 <!-- EDIT /Users/z/rmw/mdi/example.md -->
 
 `mdi [dir]`
 
-搜索目录下的 `xxx.mdi.md` 把 `> ./xxx.rs` 替换为代码内容嵌入 ，然后输出到 `xxx.md` 。
+会搜索目录下的 `xxx.mdi.md` 把 `> ./xxx.rs` 替换为代码内容嵌入 ，然后输出到 `xxx.md` 。
 
 如果嵌入的是一个 markdown 文件，会递归渲染其中的引用。
 
@@ -67,7 +70,6 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
   var a = 1;
   console.log(a);
   ```
-
 
 ### 关于
 
