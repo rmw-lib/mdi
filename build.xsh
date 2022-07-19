@@ -41,9 +41,8 @@ def main():
   cargo build \
   --release \
   --target @(TARGET) \
-  -Z build-std=std,panic_abort
-
-# -Z build-std-features=panic_immediate_abort
+  -Z build-std=std,panic_abort \
+  -Z build-std-features=panic_immediate_abort
 
   out=f"target/{TARGET}/release/{app}"
   strip @(out)
