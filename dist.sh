@@ -8,7 +8,7 @@ cd $_DIR
 
 git add -u
 git commit -m dist
-git pull
+git pull || git push
 
 cargo set-version --bump patch
 
