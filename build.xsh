@@ -23,7 +23,7 @@ elif system == 'windows':
   os = 'x86_64-pc-windows-msvc'
   ext = '.exe'
 elif system == 'linux':
-  os = '{platform.machine()}-unknown-linux-gnu'
+  os = f'{platform.machine()}-unknown-linux-gnu'
 
 $RUSTFLAGS="-C target-feature=+crt-static -C link-self-contained=yes"
 
