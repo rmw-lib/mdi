@@ -19,7 +19,7 @@
 
 `mdi [dir]`
 
-Search for `xxx.mdi.md` in the directory , replace `> . /xxx.rs` into embed code and output it to `xxx.md`.
+Search for `xxx.mdi.md` in the directory , replace `> ./xxx.rs` into embed code and output it to `xxx.md`.
 
 If the embed is a markdown file, the references are rendered recursively.
 
@@ -39,7 +39,7 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 
 <!-- EDIT /Users/z/rmw/mdi/example.md -->
 
-  `mdi [dir]`
+`mdi [dir]`
 
 搜索目录下的 `xxx.mdi.md` 把 `> ./xxx.rs` 替换为代码内容嵌入 ，然后输出到 `xxx.md` 。
 
