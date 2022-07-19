@@ -18,18 +18,18 @@ system = platform.system().lower()
 ext = ''
 
 if system == 'darwin':
-  os = f'apple-{system}'
+  os = f'{platform.machine()}-apple-{system}'
 elif system == 'windows':
   os = 'x86_64-pc-windows-msvc'
   ext = '.exe'
 elif system == 'linux':
-  os = 'unknown-linux-gnu'
+  os = '{platform.machine()}-unknown-linux-gnu'
 
 $RUSTFLAGS="-C target-feature=+crt-static -C link-self-contained=yes"
 
 # -l static=stdc++"
 
-TARGET=f'{platform.machine()}-{os}'
+TARGET=f'{os}'
 
 @Fire
 def main():
