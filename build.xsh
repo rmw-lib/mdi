@@ -6,7 +6,7 @@ from os.path import dirname,abspath,exists
 from fire import Fire
 import platform
 from humanize import naturalsize
-from os import stat
+from os import stat,makedirs,replace
 
 PWD = dirname(abspath(__file__))
 
@@ -57,7 +57,11 @@ def main():
 #    with lzma.open(out+'.xz','wb') as o:
 #      o.write(f.read())
   print(naturalsize(stat(out).st_size))
-  mkdir -p target/bin
-  bin = f"target/bin/{os}-{app}"
-  mv @(out) @(bin)
+
+  dir = 'target/bin'
+  makedirs(join(PWD,dir),exist_ok=True)
+
+  bin = join(dir,f"{os}-{app}")
+  replace(out,bin)
+
   print(bin)
