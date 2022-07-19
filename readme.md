@@ -15,6 +15,10 @@
 
 markdown include code / version / markdown ...
 
+### Install
+
+Download from [github release page](https://github.com/rmw-lib/mdi/releases) or `cargo install mdi`
+
 ### Use
 
 <!-- EDIT /Users/z/rmw/mdi/example.md -->
@@ -36,7 +40,6 @@ Demo for include code :
   console.log(a);
   ```
 
-
 ### About
 
 This project is part of **[rmw.link](//rmw.link)** Code Project
@@ -50,6 +53,10 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 ## 中文说明
 
 markdown 中嵌入代码 / 版本号 / markdown ...
+
+### 安装
+
+从 [github 发布页面](https://github.com/rmw-lib/mdi/releases) 下载，或者 `cargo install mdi`
 
 ### 使用
 
@@ -71,7 +78,6 @@ markdown 中嵌入代码 / 版本号 / markdown ...
   var a = 1;
   console.log(a);
   ```
-
 
 ### 关于
 
