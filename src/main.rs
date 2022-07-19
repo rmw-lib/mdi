@@ -100,7 +100,7 @@ pub fn render(
           out.flush()?;
           render(md, out, fp, space)?;
         } else {
-          let mut link = format!("→ [{}]({})\n\n", name, t);
+          let mut link = format!("[→ {}]({})\n\n", name, t);
 
           if let Some(space) = &space {
             link = space.to_owned() + &link + space;
