@@ -2,6 +2,10 @@
 
 markdown 中嵌入代码 / 版本号 / markdown ...
 
+### 安装
+
+[从 github 下载](https://github.com/rmw-lib/mdi/releases) 或者 `cargo install mdi`
+
 ### 使用
 
 > ./example.md

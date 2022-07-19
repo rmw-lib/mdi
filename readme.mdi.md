@@ -13,6 +13,10 @@
 
 markdown include code / version / markdown ...
 
+### Install
+
+[Download from github](https://github.com/rmw-lib/mdi/releases) or `cargo install mdi`
+
 ### Use
 
 > ./example.md
