@@ -23,6 +23,12 @@ jobs:
         #platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: choco install upx
+        if: startsWith(matrix.platform, 'windows')
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: install upx
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1
