@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
 _DIR=$(dirname $(realpath "$0"))
 
