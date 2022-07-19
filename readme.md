@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.19</h1>
+<h1 align="center">mdi v0.0.20</h1>
 <p align="center">
 <a href="#en">English</a>
 |
@@ -14,6 +14,10 @@
 ## English Readme
 
 markdown include code / version / markdown ...
+
+### Install
+
+[Download from github](https://github.com/rmw-lib/mdi/releases) or `cargo install mdi`
 
 ### Use
 
@@ -29,7 +33,7 @@ See example [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master
 
 Demo for include code :
 
-  → [demo.js](./demo.js)
+  [→ demo.js](./demo.js)
 
   ```js
   var a = 1;
@@ -53,6 +57,10 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 
 markdown 中嵌入代码 / 版本号 / markdown ...
 
+### 安装
+
+[从 github 下载](https://github.com/rmw-lib/mdi/releases) 或者 `cargo install mdi`
+
 ### 使用
 
 <!-- EDIT /Users/z/rmw/mdi/example.md -->
@@ -67,7 +75,7 @@ markdown 中嵌入代码 / 版本号 / markdown ...
 
 嵌入代码演示 :
 
-  → [demo.js](./demo.js)
+  [→ demo.js](./demo.js)
 
   ```js
   var a = 1;
