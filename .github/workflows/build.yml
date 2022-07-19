@@ -32,13 +32,9 @@ jobs:
         with:
           toolchain: nightly
           override: true
+          components: rust-src
 
-      - uses: actions/cache@v3
-        with:
-          path: |
-            docker/cache
-            rust/target
-          key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.lock') }}
+      - uses: Swatinem/rust-cache@v2
 
       - run: |
           pip3 install -r requirement.txt
