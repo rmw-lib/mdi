@@ -7,7 +7,7 @@ _DIR=$(dirname $(realpath "$0"))
 cd $_DIR
 
 git add -u
-git commit -m dist
+git commit -m dist || true
 git pull || git push
 
 cargo set-version --bump patch
