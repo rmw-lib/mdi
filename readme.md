@@ -1,6 +1,4 @@
-<!-- EDIT /Users/z/rmw/mdi/readme.md -->
-
-<h1 align="center">mdi v0.0.3</h1>
+<h1 align="center">mdi v`> ./.version`</h1>
 <p align="center">
 <a href="#en">English</a>
 <span color="#ccc"> │ </span>
@@ -14,8 +12,6 @@
 ## English Readme
 
 ### Use
-
-<!-- EDIT /Users/z/rmw/mdi/example.md -->
 
 `mdi [dir]`
 
@@ -36,8 +32,6 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 ## 中文说明
 
 ### 使用
-
-<!-- EDIT /Users/z/rmw/mdi/example.md -->
 
 `mdi [dir]`
 
