@@ -48,7 +48,8 @@ def main():
   out=f"target/{TARGET}/release/{app}"
   strip @(out)
 
-  ./sh/upx.sh
+  if system!='windows':
+    ./sh/upx.sh
 
   upx --best --lzma @(out)
 
