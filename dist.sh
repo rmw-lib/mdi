@@ -16,9 +16,12 @@ cat Cargo.toml|grep version|head -1|awk -F \" '{print $2}' > .version
 
 mdi
 
-
 git add -u
 git commit -m dist
 git push
+
+tag=v`cat ./.version`
+git tag $tag
+git push --tag $tag
 
 cargo publish
