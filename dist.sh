@@ -22,6 +22,6 @@ git push
 
 tag=v`cat ./.version`
 git tag $tag
-git push --tag $tag
+git push origin --tag $tag
 
 cargo publish
