@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.12</h1>
+<h1 align="center">mdi v0.0.13</h1>
 <p align="center">
 <a href="#en">English</a>
 <span color="#ccc"> │ </span>
@@ -27,10 +27,12 @@ See example [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master
 
 Demo for include code :
 
-  → [demo.js](./demo.js)
+  [→ demo.js](./demo.js)
 
   ```js
-  var a = 1;  console.log(a);  ```
+  var a = 1;
+  console.log(a);
+  ```
 
 
 ### About
@@ -59,10 +61,12 @@ This project is part of **[rmw.link](//rmw.link)** Code Project
 
 嵌入代码演示 :
 
-  → [demo.js](./demo.js)
+  [→ demo.js](./demo.js)
 
   ```js
-  var a = 1;  console.log(a);  ```
+  var a = 1;
+  console.log(a);
+  ```
 
 
 ### 关于
