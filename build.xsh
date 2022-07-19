@@ -15,25 +15,28 @@ cd @(PWD)
 p".xonshrc".exists() && source .xonshrc
 
 system = platform.system().lower()
-if system == 'darwin':
-  system = f'apple-{system}'
-elif system == 'linux':
-  system = 'unknown-linux-gnu'
+ext = ''
+match system:
+  case 'darwin':
+    os = f'apple-{system}'
+  case 'linux':
+    os = 'unknown-linux-gnu'
+  case 'windows':
+    os = 'x86_64-pc-windows-msvc'
+    ext = '.exe'
 
 $RUSTFLAGS="-C target-feature=+crt-static -C link-self-contained=yes"
+
 # -l static=stdc++"
 
-# x86_64-unknown-linux-gnu
-# system = 'unknown-linux-gnu'
-
-TARGET=f'{platform.machine()}-{system}'
+TARGET=f'{platform.machine()}-{os}'
 
 @Fire
 def main():
   with open(join(PWD,"Cargo.toml"),"rb") as f:
     toml = tomli.load(f)
 
-  app = toml['package']['name']
+  app = toml['package']['name']+ext
 
   cargo build \
   --release \
@@ -55,6 +58,7 @@ def main():
 #      o.write(f.read())
   stat = os.stat(out)
   print(naturalsize(stat.st_size))
-  bin = f"target/{app}"
+  mkdir -p target/bin
+  bin = f"target/bin/{system}-{app}"
   mv @(out) @(bin)
   print(bin)
