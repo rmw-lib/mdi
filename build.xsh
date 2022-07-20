@@ -46,6 +46,7 @@ def main():
 
   pkg = toml['package']
   app = pkg['name']
+  exe = app+ext
   version = pkg['version']
 
   cargo build \
@@ -54,7 +55,7 @@ def main():
   -Z build-std=std,panic_abort \
   -Z build-std-features=panic_immediate_abort # 这一句有时候会导致问题，出问题了可以注释掉
 
-  out=f"target/{TARGET}/release/{app}"
+  out=f"target/{TARGET}/release/{exe}"
   strip @(out)
 
   if system!='windows':
@@ -72,6 +73,6 @@ def main():
 
   txz = join(dir,app+f".{version}.{os_name}.{machine}.txz")
   with tarfile.open(txz, "w:xz") as tar:
-    tar.add(out,arcname=app+ext)
+    tar.add(out,arcname=exe)
 
   print(txz)
