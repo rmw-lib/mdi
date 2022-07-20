@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.26</h1>
+<h1 align="center">mdi v0.0.27</h1>
 <p align="center">
 <a href="#en">English</a>
 |
@@ -15,9 +15,7 @@
 
 markdown include code / version / markdown ...
 
-# mdi : embed code in markdown / version number / markdown ...
-
-## Preface
+### Preface
 
 Embedding version numbers and demo code in `readme.md` is a very common requirement.
 
