@@ -23,11 +23,9 @@ The function is to write a statement like `‍> ./demo.js` in markdown to embed 
 
 ![](https://raw.githubusercontent.com/gcxfd/img/gh-pages/i9g9We.png)
 
-In addition, with the [markdown translation tool](https://rmw.link/log/2021-12-09-markdown-translate) I wrote [based on deepl](https://rmw.link/log/2021-12-09-markdown-translate), you can automatically translate and render Chinese and English in the same `readme.md` file.
+In addition, with the [markdown translation tool](https://rmw.link/log/2021-12-09-markdown-translate) based on deepl , you can automatically translate and render Chinese and English in the same `readme.md` file.
 
-Then set an in-text anchor point (as below) at the top of the github readme, and click it to jump to the various language versions of the instructions, which will be a good user experience.
-
-![](https://raw.githubusercontent.com/gcxfd/img/gh-pages/YQfKiS.png)
+Then set an in-text anchor point (like this readme) at the top of the github readme, and click it to jump to the various language versions of the instructions, which will be a good user experience.
 
 ### Install
 

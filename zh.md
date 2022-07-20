@@ -14,9 +14,7 @@ markdown 中嵌入代码 / 版本号 / markdown ...
 
 另外，配合我写的 [基于 deepl 的 markdown 翻译工具](https://rmw.link/log/2021-12-09-markdown-translate)，就可以中英自动翻译并呈现在同一个 `readme.md` 文件中。
 
-再在 github readme 的顶部设置一个文内锚点（如下图），点击就可以跳转到各种语言版本的说明，用户体验会很好。
-
-![](https://raw.githubusercontent.com/gcxfd/img/gh-pages/YQfKiS.png)
+再在 github readme 的顶部设置一个文内锚点（如本文），点击就可以跳转到各种语言版本的说明，用户体验会很好。
 
 ### 安装
 
@@ -30,8 +28,7 @@ markdown 中嵌入代码 / 版本号 / markdown ...
 
 如果嵌入的是一个 markdown 文件，会递归渲染其中的引用。
 
-查看演示文件 [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.mdi.md)
-，以及生成的文件 [readme.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.md)
+查看演示文件 [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.mdi.md) ，以及生成的文件 [readme.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.md)
 
 嵌入代码演示 :
 
