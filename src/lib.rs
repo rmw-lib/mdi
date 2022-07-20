@@ -56,7 +56,7 @@ pub fn replace_all(
   }
 }
 
-pub fn compile(
+pub fn block(
   outdir: &PathBuf,
   out: &mut impl Write,
   line: &str,
@@ -183,7 +183,7 @@ pub fn render(
 
     let li = [(PREFIX_PWD, &pwd), (PREFIX_HOME, root)];
     for (prefix, dir) in li {
-      if compile(outdir, out, line, &i, &indent, root, &dir, prefix)? {
+      if block(outdir, out, line, &i, &indent, root, &dir, prefix)? {
         continue 'outer;
       }
     }
