@@ -13,7 +13,7 @@
 
 markdown include code / version / markdown ...
 
-## Preface
+### Preface
 
 Embedding version numbers and demo code in `readme.md` is a very common requirement.
 
