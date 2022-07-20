@@ -13,8 +13,6 @@
 
 markdown include code / version / markdown ...
 
-# mdi : embed code in markdown / version number / markdown ...
-
 ## Preface
 
 Embedding version numbers and demo code in `readme.md` is a very common requirement.
