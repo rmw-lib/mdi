@@ -79,8 +79,7 @@ markdown 中嵌入代码 / 版本号 / markdown ...
 
 市面上有一些类似工具，但都不好用。于是自己写了一个 ( 可执行文件大小 200 KB )。
 
-实现的功能是， markdown 中写类似 var a = 1;
-console.log(a); 的语句就会嵌入代码，生成内容效果截图如下 :
+实现的功能是， markdown 中写类似 `‍> ./demo.js` 的语句就会嵌入代码，生成内容效果截图如下 :
 
 ![](https://raw.githubusercontent.com/gcxfd/img/gh-pages/i9g9We.png)
 
