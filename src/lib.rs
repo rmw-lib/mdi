@@ -9,7 +9,8 @@ use anyhow::Result;
 use phf::phf_map;
 use walkdir::DirEntry;
 
-pub const PREFIX: &str = "> ./";
+pub const PREFIX_PWD: &str = "> ./";
+pub const PREFIX_HOME: &str = "> ./";
 
 pub const EXT_LANG: phf::Map<&'static str, &'static str> = phf_map! {
   "rs" => "rust",
@@ -54,117 +55,138 @@ pub fn replace_all(
   }
 }
 
+pub fn compile(
+  out: &mut impl Write,
+  line: &str,
+  i: &str,
+  indent: &Option<String>,
+  root: &PathBuf,
+  pwd: &PathBuf,
+  prefix: &str,
+) -> Result<bool> {
+  if i.starts_with(prefix) {
+    let t = &i[2..];
+    let name = &t[2..];
+    let fp = pwd.join(name);
+
+    if fp.exists() {
+      let ext = fp.extension();
+      let is_md = if let Some(ext) = ext {
+        ext == "md"
+      } else {
+        false
+      };
+
+      let n = line.len() - i.len();
+
+      let space = if n > 0 {
+        let t = &line[..n];
+        Some(if let Some(i) = &indent {
+          i.to_string() + t
+        } else {
+          String::from(&line[..n])
+        })
+      } else {
+        indent.as_ref().map(|i| i.to_string())
+      };
+
+      if is_md {
+        let md = BufReader::new(fs::File::open(&fp)?);
+        out.flush()?;
+        render(root, md, out, fp, space)?;
+      } else {
+        let mut link = format!("[→ {}]({})\n\n", name, t);
+
+        if let Some(space) = &space {
+          link = space.to_owned() + &link + space;
+        }
+
+        link += "```";
+
+        out.write_all(link.as_bytes())?;
+
+        if let Some(ext) = ext {
+          if let Some(ext) = ext.to_str() {
+            let lang = EXT_LANG.get(ext).unwrap_or(&ext);
+            out.write_all(lang.as_bytes())?;
+          }
+        }
+
+        out.write_all(b"\n")?;
+
+        let infile = &mut fs::File::open(&fp)?;
+        if let Some(space) = &space {
+          let space = space.as_bytes();
+          for i in BufReader::new(infile).lines().flatten() {
+            out.write_all(space)?;
+            out.write_all(i.as_bytes())?;
+            out.write_all(b"\n")?;
+          }
+        } else {
+          for i in BufReader::new(infile).lines().flatten() {
+            out.write_all(i.as_bytes())?;
+            out.write_all(b"\n")?;
+          }
+        }
+
+        if let Some(space) = &space {
+          out.write_all(space.as_bytes())?;
+        }
+
+        out.write_all(b"```\n\n")?;
+      }
+      return Ok(true);
+    }
+  }
+  if let Some(space) = &indent {
+    out.write_all(space.as_bytes())?;
+  }
+
+  {
+    let prefix = "`".to_owned() + prefix;
+    let i = replace_all(i, &prefix, "`", |file| {
+      let len = file.len();
+      let fp = pwd.join(&file[prefix.len()..len - 1]);
+      if fp.exists() {
+        if let Ok(s) = fs::read_to_string(fp) {
+          return s.trim().into();
+        }
+      }
+      file.into()
+    });
+    out.write_all(i.as_bytes())?;
+  }
+  Ok(false)
+}
+
 pub fn render(
+  root: &PathBuf,
   md: impl BufRead,
   out: &mut impl Write,
-  mut root: PathBuf,
+  mut pwd: PathBuf,
   indent: Option<String>,
 ) -> Result<()> {
-  out.write_all(format!("<!-- EDIT {} -->\n\n", root.display()).as_bytes())?;
+  out.write_all(format!("<!-- EDIT {} -->\n\n", pwd.display()).as_bytes())?;
 
-  root.pop();
+  pwd.pop();
 
-  for line in md.lines().flatten() {
+  'outer: for line in md.lines().flatten() {
     let i = line.trim_start();
-    if i.starts_with(PREFIX) {
-      let t = &i[2..];
-      let name = &t[2..];
-      let fp = root.join(name);
+    let line = line.as_ref();
 
-      if fp.exists() {
-        let ext = fp.extension();
-        let is_md = if let Some(ext) = ext {
-          ext == "md"
-        } else {
-          false
-        };
-
-        let n = line.len() - i.len();
-
-        let space = if n > 0 {
-          let t = &line[..n];
-          Some(if let Some(i) = &indent {
-            i.to_string() + t
-          } else {
-            String::from(&line[..n])
-          })
-        } else {
-          indent.as_ref().map(|i| i.to_string())
-        };
-
-        if is_md {
-          let md = BufReader::new(fs::File::open(&fp)?);
-          out.flush()?;
-          render(md, out, fp, space)?;
-        } else {
-          let mut link = format!("[→ {}]({})\n\n", name, t);
-
-          if let Some(space) = &space {
-            link = space.to_owned() + &link + space;
-          }
-
-          link += "```";
-
-          out.write_all(link.as_bytes())?;
-
-          if let Some(ext) = ext {
-            if let Some(ext) = ext.to_str() {
-              let lang = EXT_LANG.get(ext).unwrap_or(&ext);
-              out.write_all(lang.as_bytes())?;
-            }
-          }
-
-          out.write_all(b"\n")?;
-
-          let infile = &mut fs::File::open(&fp)?;
-          if let Some(space) = &space {
-            let space = space.as_bytes();
-            for i in BufReader::new(infile).lines().flatten() {
-              out.write_all(space)?;
-              out.write_all(i.as_bytes())?;
-              out.write_all(b"\n")?;
-            }
-          } else {
-            for i in BufReader::new(infile).lines().flatten() {
-              out.write_all(i.as_bytes())?;
-              out.write_all(b"\n")?;
-            }
-          }
-
-          if let Some(space) = &space {
-            out.write_all(space.as_bytes())?;
-          }
-
-          out.write_all(b"```\n\n")?;
-        }
-        continue;
+    for prefix in [PREFIX_PWD, PREFIX_HOME] {
+      if compile(out, line, i, &indent, root, &pwd, prefix)? {
+        continue 'outer;
       }
     }
 
-    if let Some(space) = &indent {
-      out.write_all(space.as_bytes())?;
-    }
-
-    {
-      let prefix = "`".to_owned() + PREFIX;
-      let i = replace_all(i, &prefix, "`", |file| {
-        let len = file.len();
-        let fp = root.join(&file[prefix.len()..len - 1]);
-        if fp.exists() {
-          if let Ok(s) = fs::read_to_string(fp) {
-            return s.trim().into();
-          }
-        }
-        file.into()
-      });
-      out.write_all(i.as_bytes())?;
-    }
     out.write_all(b"\n")?;
   }
   Ok(())
 }
 
 pub fn parse(
+  root: &PathBuf,
   li: impl Iterator<Item = std::result::Result<DirEntry, walkdir::Error>>,
 ) -> Result<()> {
   for fp in li {
@@ -181,7 +203,7 @@ pub fn parse(
             fp.set_file_name(name);
             let out = File::create(&fp)?;
             println!("{}", fp.display());
-            render(BufReader::new(md), &mut BufWriter::new(out), fp, None)?;
+            render(root, BufReader::new(md), &mut BufWriter::new(out), fp, None)?;
           }
         }
       }

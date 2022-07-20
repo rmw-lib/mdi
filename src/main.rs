@@ -37,15 +37,18 @@ pub fn main() -> Result<()> {
   let ignore = dir.join(".gitignore");
   if ignore.exists() {
     if let Ok(ignore) = gitignore::File::new(&ignore) {
-      return parse(li.filter_entry(move |e| {
-        let p = e.path();
-        if let Ok(i) = ignore.is_excluded(p) && p != dir && i {
+      return parse(
+        &dir,
+        li.filter_entry(|e| {
+          let p = e.path();
+          if let Ok(i) = ignore.is_excluded(p) && p != dir && i {
             return false;
           }
-        true
-      }));
+          true
+        }),
+      );
     }
   };
 
-  parse(li)
+  parse(&dir, li)
 }
