@@ -55,10 +55,10 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name : mdi
-          path : target/bin/*
+          path : target/txz/*
 
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            target/bin/*
+            target/txz/*

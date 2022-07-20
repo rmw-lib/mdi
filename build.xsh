@@ -1,12 +1,12 @@
 #!/usr/bin/env xonsh
 
-# import lzma
 import tomli
 from os.path import dirname,abspath,exists
 from fire import Fire
 import platform
 from humanize import naturalsize
 from os import stat,makedirs,replace
+import tarfile
 
 PWD = dirname(abspath(__file__))
 
@@ -14,29 +14,39 @@ cd @(PWD)
 
 p".xonshrc".exists() && source .xonshrc
 
-system = platform.system().lower()
-ext = ''
-
-if system == 'darwin':
-  os = f'{platform.machine()}-apple-{system}'
-elif system == 'windows':
-  os = 'x86_64-pc-windows-msvc'
-  ext = '.exe'
-elif system == 'linux':
-  os = f'{platform.machine()}-unknown-linux-gnu'
-
-$RUSTFLAGS="-C target-feature=+crt-static -C link-self-contained=yes"
-
-# -l static=stdc++"
-
-TARGET=f'{os}'
 
 @Fire
 def main():
+  system = platform.system().lower()
+  ext = ''
+
+  if system == 'windows':
+    os_name =  'win'
+    machine = 'x86_64'
+    os = f'{machine}-pc-windows-msvc'
+    ext = '.exe'
+  else:
+    machine = platform.machine()
+
+    if system == 'darwin':
+      os_name =  'osx'
+      os = f'{machine}-apple-{system}'
+    elif system == 'linux':
+      os_name =  'linux'
+      os = f'{machine}-unknown-linux-gnu'
+
+  $RUSTFLAGS="-C target-feature=+crt-static -C link-self-contained=yes"
+
+# -l static=stdc++"
+
+  TARGET=f'{os}'
+
   with open(join(PWD,"Cargo.toml"),"rb") as f:
     toml = tomli.load(f)
 
-  app = toml['package']['name']+ext
+  pkg = toml['package']
+  app = pkg['name']
+  version = pkg['version']
 
   cargo build \
   --release \
@@ -52,15 +62,16 @@ def main():
 
   upx --best --lzma @(out)
 
-#  with open(out,'rb') as f:
-#    with lzma.open(out+'.xz','wb') as o:
-#      o.write(f.read())
   print(naturalsize(stat(out).st_size))
 
-  dir = 'target/bin'
+  dir = 'target/txz'
   makedirs(join(PWD,dir),exist_ok=True)
 
-  bin = join(dir,f"{os}-{app}")
-  replace(out,bin)
+  if machine == 'x86_64':
+    machine = 'x64'
 
-  print(bin)
+  txz = join(dir,app+f".{version}.{os_name}.{machine}.txz")
+  with tarfile.open(txz, "w:xz") as tar:
+    tar.add(out)
+
+  print(txz)
