@@ -21,8 +21,7 @@ Embedding version numbers and demo code in `readme.md` is a very common requirem
 
 There are some similar tools on the market, but none of them works well. So I wrote one myself ( executable size 200 KB ).
 
-The function is to write a statement like var a = 1;
-console.log(a); in markdown to embed the code, and the screenshot of the generated content is as follows :
+The function is to write a statement like `\> ./demo.js` in markdown to embed the code, and the screenshot of the generated content is as follows :
 
 ![](https://raw.githubusercontent.com/gcxfd/img/gh-pages/i9g9We.png)
 
