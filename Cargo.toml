@@ -10,6 +10,7 @@ readme = "readme.md"
 keywords = ["markdown"]
 
 [dependencies]
+pathdiff = "0.2.1"
 anyhow = "1.0.58"
 err = { version = "0.0.5", package = "rmw_err" }
 phf = { version = "0.11", features = ["macros"] }

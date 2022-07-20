@@ -6,11 +6,12 @@ use std::{
 };
 
 use anyhow::Result;
+use pathdiff::diff_paths;
 use phf::phf_map;
 use walkdir::DirEntry;
 
 pub const PREFIX_PWD: &str = "> ./";
-pub const PREFIX_HOME: &str = "> ./";
+pub const PREFIX_HOME: &str = "> ~/";
 
 pub const EXT_LANG: phf::Map<&'static str, &'static str> = phf_map! {
   "rs" => "rust",
@@ -56,18 +57,19 @@ pub fn replace_all(
 }
 
 pub fn compile(
+  outdir: &PathBuf,
   out: &mut impl Write,
   line: &str,
-  i: &str,
+  i: &String,
   indent: &Option<String>,
   root: &PathBuf,
-  pwd: &PathBuf,
+  base: &PathBuf,
   prefix: &str,
 ) -> Result<bool> {
   if i.starts_with(prefix) {
     let t = &i[2..];
     let name = &t[2..];
-    let fp = pwd.join(name);
+    let fp = base.join(name);
 
     if fp.exists() {
       let ext = fp.extension();
@@ -93,9 +95,16 @@ pub fn compile(
       if is_md {
         let md = BufReader::new(fs::File::open(&fp)?);
         out.flush()?;
-        render(root, md, out, fp, space)?;
+        render(outdir, root, md, out, fp, space)?;
       } else {
-        let mut link = format!("[→ {}]({})\n\n", name, t);
+        let mut link = format!(
+          "[→ {}]({})\n\n",
+          name,
+          diff_paths(&fp, outdir)
+            .unwrap_or(PathBuf::new())
+            .display()
+            .to_string()
+        );
 
         if let Some(space) = &space {
           link = space.to_owned() + &link + space;
@@ -138,28 +147,26 @@ pub fn compile(
       return Ok(true);
     }
   }
-  if let Some(space) = &indent {
-    out.write_all(space.as_bytes())?;
-  }
 
-  {
-    let prefix = "`".to_owned() + prefix;
-    let i = replace_all(i, &prefix, "`", |file| {
-      let len = file.len();
-      let fp = pwd.join(&file[prefix.len()..len - 1]);
-      if fp.exists() {
-        if let Ok(s) = fs::read_to_string(fp) {
-          return s.trim().into();
-        }
-      }
-      file.into()
-    });
-    out.write_all(i.as_bytes())?;
-  }
   Ok(false)
 }
 
+pub fn inline(prefix: &str, base: &PathBuf, i: &str) -> String {
+  let prefix = "`".to_owned() + prefix;
+  replace_all(i, &prefix, "`", |file| {
+    let len = file.len();
+    let fp = base.join(&file[prefix.len()..len - 1]);
+    if fp.exists() {
+      if let Ok(s) = fs::read_to_string(fp) {
+        return s.trim().into();
+      }
+    }
+    file.into()
+  })
+}
+
 pub fn render(
+  outdir: &PathBuf,
   root: &PathBuf,
   md: impl BufRead,
   out: &mut impl Write,
@@ -171,15 +178,24 @@ pub fn render(
   pwd.pop();
 
   'outer: for line in md.lines().flatten() {
-    let i = line.trim_start();
+    let mut i = line.trim_start().to_owned();
     let line = line.as_ref();
 
-    for prefix in [PREFIX_PWD, PREFIX_HOME] {
-      if compile(out, line, i, &indent, root, &pwd, prefix)? {
+    let li = [(PREFIX_PWD, &pwd), (PREFIX_HOME, root)];
+    for (prefix, dir) in li {
+      if compile(outdir, out, line, &i, &indent, root, &dir, prefix)? {
         continue 'outer;
       }
     }
+    if let Some(space) = &indent {
+      out.write_all(space.as_bytes())?;
+    }
 
+    for (prefix, dir) in li {
+      i = inline(prefix, dir, &i);
+    }
+
+    out.write_all(i.as_bytes())?;
     out.write_all(b"\n")?;
   }
   Ok(())
@@ -203,7 +219,18 @@ pub fn parse(
             fp.set_file_name(name);
             let out = File::create(&fp)?;
             println!("{}", fp.display());
-            render(root, BufReader::new(md), &mut BufWriter::new(out), fp, None)?;
+
+            let mut outdir = fp.clone();
+            outdir.pop();
+
+            render(
+              &outdir,
+              root,
+              BufReader::new(md),
+              &mut BufWriter::new(out),
+              fp,
+              None,
+            )?;
           }
         }
       }
