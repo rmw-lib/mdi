@@ -1,6 +1,6 @@
 <!-- EDIT /Users/z/rmw/mdi/readme.md -->
 
-<h1 align="center">mdi v0.0.28</h1>
+<h1 align="center">mdi v0.0.29</h1>
 <p align="center">
 <a href="#en">English</a>
 |
