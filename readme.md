@@ -53,6 +53,12 @@ Demo for include code :
   ```
 
 
+The `~` in `> ~/xxx.rs` indicates a file reference based on the project's root directory.
+
+`mdi` will look up the `.git` directory from the current directory (or the command line argument `[dir]`), using the first directory where the `.git` folder exists as the root of the project, or the current directory if it is not found.
+
+Paths ignored in `.gitignore` are ignored.
+
 ### About
 
 This project is part of **[rmw.link](//rmw.link)** Code Project
@@ -94,6 +100,12 @@ markdown 中嵌入代码 / 版本号 / markdown ...
 会搜索目录下的 `xxx.mdi.md` 把 `> ./xxx.rs` 替换为代码内容嵌入 ，然后输出到 `xxx.md` 。
 
 如果嵌入的是一个 markdown 文件，会递归渲染其中的引用。
+
+`> ~/xxx.rs` 中的 `~` 表示基于项目根目录的文件引用。
+
+`mdi` 会从当前目录 (或命令行参数`[dir]`) 开始向上查找 `.git` 目录，以首个存在 `.git` 文件夹的目录作为项目根目录，如果没找到，就以当前目录为根目录。
+
+会忽略 `.gitignore` 中忽略的路径。
 
 查看演示文件 [readme.mdi.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.mdi.md) ，以及生成的文件 [readme.md](https://raw.githubusercontent.com/rmw-lib/mdi/master/readme.md)
 

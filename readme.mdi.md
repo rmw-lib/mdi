@@ -43,6 +43,12 @@ Demo for include code :
 
   > ./demo.js
 
+The `~` in `> ~/xxx.rs` indicates a file reference based on the project's root directory.
+
+`mdi` will look up the `.git` directory from the current directory (or the command line argument `[dir]`), using the first directory where the `.git` folder exists as the root of the project, or the current directory if it is not found.
+
+Paths ignored in `.gitignore` are ignored.
+
 ### About
 
 This project is part of **[rmw.link](//rmw.link)** Code Project
