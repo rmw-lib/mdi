@@ -14,12 +14,6 @@ cargo set-version --bump patch
 
 cat Cargo.toml|grep version|head -1|awk -F \" '{print $2}' > .version
 
-if ! hash mdi 2>/dev/null; then
-cargo add mdi
-fi
-
-mdi
-
 git add -u
 git commit -m dist
 git push
