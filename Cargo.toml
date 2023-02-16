@@ -11,18 +11,18 @@ keywords = ["markdown"]
 
 [dependencies]
 pathdiff = "0.2.1"
-anyhow = "1.0.58"
+anyhow = "1.0.69"
 err = { version = "0.0.5", package = "rmw_err" }
 phf = { version = "0.11", features = ["macros"] }
 gitignore = "1.0.7"
 walkdir = "2.3.2"
 
 [dependencies.clap]
-version = "3.2.12"
+version = "4"
 features = ["cargo"]
 
 [dev-dependencies]
-criterion = "0.3.6"
+criterion = "0.4"
 rand = "0.8.5"
 
 [profile.bench]
