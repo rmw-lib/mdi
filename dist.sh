@@ -22,4 +22,4 @@ tag=v`cat ./.version`
 git tag $tag
 git push origin --tag $tag
 
-cargo publish
+cargo publish --registry crates-io
