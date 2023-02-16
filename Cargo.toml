@@ -1,0 +1,42 @@
+[package]
+name = "mdi"
+version = "0.0.37"
+edition = "2021"
+authors = ["gcxfd <i@rmw.link>"]
+license = "Apache-2.0"
+description = "markdown include"
+repository = "https://github.com/rmw-lib/mdi"
+readme = "readme.md"
+keywords = ["markdown"]
+
+[dependencies]
+pathdiff = "0.2.1"
+anyhow = "1.0.69"
+err = { version = "0.0.5", package = "rmw_err" }
+phf = { version = "0.11", features = ["macros"] }
+gitignore = "1.0.7"
+walkdir = "2.3.2"
+
+[dependencies.clap]
+version = "4"
+features = ["cargo"]
+
+[dev-dependencies]
+criterion = "0.4"
+rand = "0.8.5"
+
+[profile.bench]
+lto = true
+
+[[bin]]
+bench = false
+path = "src/main.rs"
+name = "mdi"
+
+[profile.release]
+lto = true
+codegen-units = 1
+debug-assertions = false
+overflow-checks = false
+opt-level = "z"
+panic = 'abort'
