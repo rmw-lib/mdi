@@ -41,8 +41,10 @@ pub fn main() -> Result<()> {
         &dir,
         li.filter_entry(|e| {
           let p = e.path();
-          if let Ok(i) = ignore.is_excluded(p) && p != dir && i {
-            return false;
+          if let Ok(i) = ignore.is_excluded(p) {
+            if p != dir && i {
+              return false;
+            }
           }
           true
         }),
