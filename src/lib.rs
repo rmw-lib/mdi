@@ -100,10 +100,7 @@ pub fn block(
         let mut link = format!(
           "[→ {}]({})\n\n",
           name,
-          diff_paths(&fp, outdir)
-            .unwrap_or(PathBuf::new())
-            .display()
-            .to_string()
+          diff_paths(&fp, outdir).unwrap_or(PathBuf::new()).display()
         );
 
         if let Some(space) = &space {
@@ -183,7 +180,7 @@ pub fn render(
 
     let li = [(PREFIX_PWD, &pwd), (PREFIX_HOME, root)];
     for (prefix, dir) in li {
-      if block(outdir, out, line, &i, &indent, root, &dir, prefix)? {
+      if block(outdir, out, line, &i, &indent, root, dir, prefix)? {
         continue 'outer;
       }
     }
